@@ -1,7 +1,7 @@
 Summary:	System daemon for managing color devices
 Name:		colord
 Version:	0.1.24
-Release:	2
+Release:	6
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
@@ -24,6 +24,7 @@ BuildRequires:	sane-backends-devel
 BuildRequires:	sqlite3-devel
 BuildRequires:	udev-glib-devel
 BuildRequires:	vala-vapigen
+Requires(pre,postun):	pwdutils
 Provides:	group(colord)
 Provides:	user(colord)
 Requires:	%{name}-libs = %{version}-%{release}
@@ -99,18 +100,11 @@ rm -rf $RPM_BUILD_ROOT
 %groupadd -g 108 -r -f colord
 %useradd -u 108 -r -d /usr/share/empty -s /bin/false -c "colord daemon" -g colord colord
 
-%post
-%systemd_post colord.service
-
-%preun
-%systemd_preun colord.service
-
 %postun
 if [ "$1" = "0" ]; then
     %userremove colord
     %groupremove colord
 fi
-%systemd_reload
 
 %post	libs -p /usr/sbin/ldconfig
 %postun	libs -p /usr/sbin/ldconfig
@@ -143,8 +137,9 @@ fi
 /etc/dbus-1/system.d/org.freedesktop.ColorManager.conf
 %{_prefix}/lib/udev/rules.d/69-cd-sensors.rules
 %{_prefix}/lib/udev/rules.d/95-cd-devices.rules
-%dir /var/lib/colord
-%dir /var/lib/colord/icc
+
+%attr(755,colord,colord) %dir /var/lib/colord
+%attr(755,colord,colord) %dir /var/lib/colord/icc
 %ghost /var/lib/colord/mapping.db
 %ghost /var/lib/colord/storage.db
 
