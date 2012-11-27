@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.24
-Release:	6
+Version:	0.1.25
+Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	1e7c4164c35b8415af108fb2a0db7e1f
+# Source0-md5:	85549f99d36c0436db8b9c764215c584
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -126,9 +126,6 @@ fi
 %dir %{_libdir}/colord-plugins
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_camera.so
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_scanner.so
-
-%dir %{_datadir}/color/icc/colord
-%{_datadir}/color/icc/colord/*.icc
 
 %{_datadir}/dbus-1/system-services/org.freedesktop.ColorManager.service
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
