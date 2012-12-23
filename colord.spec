@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.25
+Version:	0.1.26
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	85549f99d36c0436db8b9c764215c584
+# Source0-md5:	003dc934ddcdfe09b478b84ac0288dcf
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -117,15 +117,21 @@ fi
 %attr(755,root,root) %{_bindir}/colormgr
 %dir %{_libexecdir}
 %attr(755,root,root) %{_libexecdir}/colord
+%attr(755,root,root) %{_libexecdir}/colord-session
 
 %dir %{_libdir}/colord-sensors
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_colorhug.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_dummy.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_huey.so
+%attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_argyll.so
 
 %dir %{_libdir}/colord-plugins
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_camera.so
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_scanner.so
+
+%dir %{_datadir}/colord
+%{_datadir}/colord/icons
+%{_datadir}/colord/ti1
 
 %{_datadir}/dbus-1/system-services/org.freedesktop.ColorManager.service
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
@@ -140,10 +146,12 @@ fi
 %ghost /var/lib/colord/mapping.db
 %ghost /var/lib/colord/storage.db
 
+%{_datadir}/dbus-1/interfaces/org.freedesktop.ColorHelper.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager.Device.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager.Profile.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager.Sensor.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager.xml
+%{_datadir}/dbus-1/services/org.freedesktop.ColorHelper.service
 
 %if 0
 %{_mandir}/man1/cd-create-profile.1*
