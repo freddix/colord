@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.26
+Version:	0.1.28
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	003dc934ddcdfe09b478b84ac0288dcf
+# Source0-md5:	14a37f7aae8b47d247adea77686d6bd1
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -25,6 +25,7 @@ BuildRequires:	sqlite3-devel
 BuildRequires:	udev-glib-devel
 BuildRequires:	vala-vapigen
 Requires(pre,postun):	pwdutils
+Requires(post,postun):	glib-gio-gsettings
 Provides:	group(colord)
 Provides:	user(colord)
 Requires:	%{name}-libs = %{version}-%{release}
@@ -100,7 +101,11 @@ rm -rf $RPM_BUILD_ROOT
 %groupadd -g 108 -r -f colord
 %useradd -u 108 -r -d /usr/share/empty -s /bin/false -c "colord daemon" -g colord colord
 
+%post
+%update_gsettings_cache
+
 %postun
+%update_gsettings_cache
 if [ "$1" = "0" ]; then
     %userremove colord
     %groupremove colord
@@ -133,7 +138,10 @@ fi
 %{_datadir}/colord/icons
 %{_datadir}/colord/ti1
 
+%{_datadir}/color/icc/colord
+
 %{_datadir}/dbus-1/system-services/org.freedesktop.ColorManager.service
+%{_datadir}/glib-2.0/schemas/org.freedesktop.ColorHelper.gschema.xml
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
 %{systemdunitdir}/colord.service
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/colord.conf
