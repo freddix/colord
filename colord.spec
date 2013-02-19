@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.28
+Version:	0.1.30
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	14a37f7aae8b47d247adea77686d6bd1
+# Source0-md5:	88ec2c419a9903f5bec91d603c0e7097
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -125,10 +125,11 @@ fi
 %attr(755,root,root) %{_libexecdir}/colord-session
 
 %dir %{_libdir}/colord-sensors
+%attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_argyll.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_colorhug.so
+%attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_dtp94.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_dummy.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_huey.so
-%attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_argyll.so
 
 %dir %{_libdir}/colord-plugins
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_camera.so
@@ -170,14 +171,22 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/libcolord*.so.?
+%attr(755,root,root) %ghost %{_libdir}/libcolorhug.so.1
+%attr(755,root,root) %ghost %{_libdir}/libdtp94-private.so.0
+%attr(755,root,root) %ghost %{_libdir}/libhuey-private.so.0
+%attr(755,root,root) %ghost %{_libdir}/libmunki-private.so.0
 %attr(755,root,root) %{_libdir}/libcolord*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libcolorhug.so.*.*.*
+%attr(755,root,root) %{_libdir}/libdtp94-private.so.*.*.*
+%attr(755,root,root) %{_libdir}/libhuey-private.so.*.*.*
+%attr(755,root,root) %{_libdir}/libmunki-private.so.*.*.*
 %{_libdir}/girepository-1.0/*.typelib
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcolord*.so
+%attr(755,root,root) %{_libdir}/*.so
 %{_includedir}/colord-1
-%{_pkgconfigdir}/colord*.pc
+%{_pkgconfigdir}/*.pc
 %{_datadir}/gir-1.0/*.gir
 %{_datadir}/vala/vapi/colord.vapi
 
