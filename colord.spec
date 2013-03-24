@@ -1,11 +1,12 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.30
+Version:	0.1.31
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	88ec2c419a9903f5bec91d603c0e7097
+# Source0-md5:	3b880ff2c785b83320286b3ae350531b
+Patch0:		%{name}-udev-rules.patch
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -63,6 +64,7 @@ colord API documentation.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -130,6 +132,9 @@ fi
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_dtp94.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_dummy.so
 %attr(755,root,root) %{_libdir}/colord-sensors/libcolord_sensor_huey.so
+%attr(755,root,root) %{_libdir}/colord-sensors/libdtp94-private.so
+%attr(755,root,root) %{_libdir}/colord-sensors/libhuey-private.so
+%attr(755,root,root) %{_libdir}/colord-sensors/libmunki-private.so
 
 %dir %{_libdir}/colord-plugins
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_camera.so
@@ -172,14 +177,8 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/libcolord*.so.?
 %attr(755,root,root) %ghost %{_libdir}/libcolorhug.so.1
-%attr(755,root,root) %ghost %{_libdir}/libdtp94-private.so.0
-%attr(755,root,root) %ghost %{_libdir}/libhuey-private.so.0
-%attr(755,root,root) %ghost %{_libdir}/libmunki-private.so.0
 %attr(755,root,root) %{_libdir}/libcolord*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libcolorhug.so.*.*.*
-%attr(755,root,root) %{_libdir}/libdtp94-private.so.*.*.*
-%attr(755,root,root) %{_libdir}/libhuey-private.so.*.*.*
-%attr(755,root,root) %{_libdir}/libmunki-private.so.*.*.*
 %{_libdir}/girepository-1.0/*.typelib
 
 %files devel
