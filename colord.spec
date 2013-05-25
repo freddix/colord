@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	0.1.32
+Version:	1.0.0
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	fecd86425982d48b1545fe30e38a381d
+# Source0-md5:	5b0c442a2a87c3688b17e1547452ffcb
 Patch0:		%{name}-udev-rules.patch
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
@@ -76,6 +76,8 @@ colord API documentation.
 %configure \
 	--disable-silent-rules		\
 	--disable-static		\
+	--enable-bash-completion=no	\
+	--enable-sane			\
 	--enable-vala			\
 	--with-daemon-user=colord	\
 	--with-html-dir=%{_gtkdocdir} 	\
@@ -125,6 +127,7 @@ fi
 %attr(755,root,root) %{_bindir}/colormgr
 %dir %{_libexecdir}
 %attr(755,root,root) %{_libexecdir}/colord
+%attr(755,root,root) %{_libexecdir}/colord-sane
 %attr(755,root,root) %{_libexecdir}/colord-session
 
 %dir %{_libdir}/colord-sensors
@@ -138,6 +141,7 @@ fi
 %attr(755,root,root) %{_libdir}/colord-sensors/libmunki-private.so
 
 %dir %{_libdir}/colord-plugins
+%attr(755,root,root) %{_libdir}//colord-plugins/libcd_plugin_sane.so
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_camera.so
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_scanner.so
 
