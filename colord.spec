@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	1.0.3
+Version:	1.0.6
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	a5e0da68c656812113fe0fcdda33e82c
+# Source0-md5:	9bd8a1f117742c31d195a09092ca3066
 Patch0:		%{name}-udev-rules.patch
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
