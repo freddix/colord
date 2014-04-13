@@ -1,12 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	1.0.6
+Version:	1.2.0
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	9bd8a1f117742c31d195a09092ca3066
-Patch0:		%{name}-udev-rules.patch
+# Source0-md5:	740b321a32c6e54d28e6d043007947ea
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -64,7 +63,6 @@ colord API documentation.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -90,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/colord-*/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/{,colord-*/}*.la
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/it_IT
 
 %find_lang %{name}
@@ -120,7 +118,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS ChangeLog NEWS TODO
 %attr(755,root,root) %{_bindir}/cd-create-profile
 %attr(755,root,root) %{_bindir}/cd-fix-profile
 %attr(755,root,root) %{_bindir}/cd-iccdump
@@ -146,7 +144,10 @@ fi
 %attr(755,root,root) %{_libdir}/colord-plugins/libcd_plugin_scanner.so
 
 %dir %{_datadir}/colord
+%{_datadir}/colord/cmf
 %{_datadir}/colord/icons
+%{_datadir}/colord/illuminant
+%{_datadir}/colord/ref
 %{_datadir}/colord/ti1
 
 %{_datadir}/color/icc/colord
@@ -155,7 +156,7 @@ fi
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ColorHelper.gschema.xml
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
 %{systemdunitdir}/colord.service
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/colord.conf
+#%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/colord.conf
 /etc/dbus-1/system.d/org.freedesktop.ColorManager.conf
 %{_prefix}/lib/udev/rules.d/69-cd-sensors.rules
 %{_prefix}/lib/udev/rules.d/95-cd-devices.rules
@@ -181,7 +182,7 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/libcolord*.so.?
-%attr(755,root,root) %ghost %{_libdir}/libcolorhug.so.1
+%attr(755,root,root) %ghost %{_libdir}/libcolorhug.so.2
 %attr(755,root,root) %{_libdir}/libcolord*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libcolorhug.so.*.*.*
 %{_libdir}/girepository-1.0/*.typelib
