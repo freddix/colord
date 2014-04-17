@@ -1,7 +1,7 @@
 Summary:	System daemon for managing color devices
 Name:		colord
 Version:	1.2.0
-Release:	1
+Release:	2
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
@@ -89,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/{,colord-*/}*.la
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/it_IT
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{da_DK,it_IT,pt_PT}
 
 %find_lang %{name}
 
