@@ -1,17 +1,19 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	1.2.0
-Release:	2
+Version:	1.2.3
+Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	740b321a32c6e54d28e6d043007947ea
+# Source0-md5:	f1d25333716d4705f6aeb7452aa25b86
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
+# --disable-schemas-compile broken
+BuildRequires:	glib-gio-gsettings
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
@@ -72,6 +74,7 @@ colord API documentation.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-schemas-compile	\
 	--disable-silent-rules		\
 	--disable-static		\
 	--enable-bash-completion=no	\
