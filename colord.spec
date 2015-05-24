@@ -1,11 +1,11 @@
 Summary:	System daemon for managing color devices
 Name:		colord
-Version:	1.2.4
+Version:	1.2.10
 Release:	1
 License:	GPL v2+ and LGPL v2+
 Group:		Daemons
 Source0:	http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	d0a9c8e29374b6330455fb8902c8f246
+# Source0-md5:	02f3e9cbb24a375bb981e680fae8e9be
 URL:		http://www.freedesktop.org/software/colord/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -74,6 +74,7 @@ colord API documentation.
 %{__autoheader}
 %{__automake}
 %configure \
+	SPOTREAD=%{_bindir}/spotread	\
 	--disable-schemas-compile	\
 	--disable-silent-rules		\
 	--disable-static		\
@@ -125,6 +126,7 @@ fi
 %attr(755,root,root) %{_bindir}/cd-create-profile
 %attr(755,root,root) %{_bindir}/cd-fix-profile
 %attr(755,root,root) %{_bindir}/cd-iccdump
+%attr(755,root,root) %{_bindir}/cd-it8
 %attr(755,root,root) %{_bindir}/colormgr
 %dir %{_libexecdir}
 %attr(755,root,root) %{_libexecdir}/colord
